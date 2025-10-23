@@ -1,0 +1,27 @@
+{
+  "app": {
+    "title": "ENT Clinic Management"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "patients": "Patients",
+    "doctors": "Doctors",
+    "appointments": "Appointments",
+    "medicalRecords": "Medical Records",
+    "inventory": "Inventory",
+    "prescriptions": "Prescriptions"
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "username": "Username",
+    "password": "Password"
+  }
+}

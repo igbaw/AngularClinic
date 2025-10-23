@@ -1,0 +1,48 @@
+<c-container class="mt-4">
+  <c-row>
+    <c-col md="8">
+      <c-card>
+        <c-card-body>
+          <form cForm [formGroup]="form" (ngSubmit)="save()">
+            <div class="mb-3">
+              <label class="form-label">Nama Lengkap</label>
+              <input cFormControl formControlName="full_name" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Tanggal Lahir</label>
+              <input cFormControl type="date" formControlName="date_of_birth" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Jenis Kelamin</label>
+              <select cFormControl formControlName="gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Telepon</label>
+              <input cFormControl formControlName="contact_number" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input cFormControl type="email" formControlName="email" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Alamat</label>
+              <input cFormControl formControlName="address" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">No. Asuransi/BPJS</label>
+              <input cFormControl formControlName="insurance_id" />
+            </div>
+            <div class="d-flex justify-content-between">
+              <a cButton color="secondary" routerLink="../">Batal</a>
+              <button cButton color="primary" type="submit">Simpan</button>
+            </div>
+          </form>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+</c-container>

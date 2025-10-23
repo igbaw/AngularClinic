@@ -1,0 +1,53 @@
+<c-container class="mt-4">
+  <c-row>
+    <c-col>
+      <c-card>
+        <c-card-body>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="flex-grow-1 me-2">
+              <c-input-group>
+                <span cInputGroupText>
+                  <svg cIcon name="cilSearch"></svg>
+                </span>
+                <input cFormControl placeholder="Cari nama / spesialis / telepon" [(ngModel)]="q" (keyup.enter)="load()" />
+              </c-input-group>
+            </div>
+            <a cButton color="primary" routerLink="create">Tambah</a>
+          </div>
+
+          <div class="table-responsive">
+            <table cTable class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Nama</th>
+                  <th>Spesialisasi</th>
+                  <th>Lisensi</th>
+                  <th>SIP</th>
+                  <th>Telepon</th>
+                  <th>Email</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (d of items(); track d.id) {
+                  <tr>
+                    <td>{{ d.full_name }}</td>
+                    <td>{{ d.specialization }}</td>
+                    <td>{{ d.license_number }}</td>
+                    <td>{{ d.sip }}</td>
+                    <td>{{ d.contact_number }}</td>
+                    <td>{{ d.email }}</td>
+                    <td class="text-end">
+                      <a cButton color="secondary" size="sm" [routerLink]="[d.id]">Ubah</a>
+                      <button cButton color="danger" size="sm" class="ms-2" (click)="delete(d.id)">Hapus</button>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+</c-container>

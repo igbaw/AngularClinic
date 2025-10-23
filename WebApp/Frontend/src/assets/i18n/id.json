@@ -1,0 +1,27 @@
+{
+  "app": {
+    "title": "Manajemen Klinik THT"
+  },
+  "nav": {
+    "dashboard": "Dasbor",
+    "patients": "Pasien",
+    "doctors": "Dokter",
+    "appointments": "Janji Temu",
+    "medicalRecords": "Rekam Medis",
+    "inventory": "Inventori",
+    "prescriptions": "Resep"
+  },
+  "actions": {
+    "save": "Simpan",
+    "cancel": "Batal",
+    "delete": "Hapus",
+    "edit": "Ubah",
+    "create": "Tambah"
+  },
+  "auth": {
+    "login": "Masuk",
+    "logout": "Keluar",
+    "username": "Nama Pengguna",
+    "password": "Kata Sandi"
+  }
+}

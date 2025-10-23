@@ -1,0 +1,49 @@
+<c-container class="mt-4">
+  <c-row>
+    <c-col>
+      <c-card>
+        <c-card-body>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex align-items-center">
+              <span class="me-2">Pasien</span>
+              <select cFormControl [(ngModel)]="patientId" (ngModelChange)="load()">
+                <option [ngValue]="''">Semua</option>
+                @for (p of patients(); track p.id) {
+                  <option [ngValue]="p.id">{{ p.full_name }}</option>
+                }
+              </select>
+            </div>
+            <a cButton color="primary" routerLink="create">Tambah</a>
+          </div>
+
+          <div class="table-responsive">
+            <table cTable class="table table-striped">
+              <thead>
+                <tr>
+                  <th>No. RM</th>
+                  <th>Pasien</th>
+                  <th>Dokter</th>
+                  <th>Dibuat</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (r of items(); track r.id) {
+                  <tr>
+                    <td>{{ r.record_number }}</td>
+                    <td>{{ patientName(r.patient_id) }}</td>
+                    <td>{{ doctorName(r.doctor_id) }}</td>
+                    <td>{{ r.created_at }}</td>
+                    <td class="text-end">
+                      <a cButton color="secondary" size="sm" [routerLink]="[r.id]">Ubah</a>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+</c-container>

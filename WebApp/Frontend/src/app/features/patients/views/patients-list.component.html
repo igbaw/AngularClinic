@@ -1,0 +1,51 @@
+<c-container class="mt-4">
+  <c-row>
+    <c-col>
+      <c-card>
+        <c-card-body>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="flex-grow-1 me-2">
+              <c-input-group>
+                <span cInputGroupText>
+                  <svg cIcon name="cilSearch"></svg>
+                </span>
+                <input cFormControl placeholder="Cari nama / telepon" [(ngModel)]="q" (ngModelChange)="q.set($event)" (keyup.enter)="load()" />
+              </c-input-group>
+            </div>
+            <a cButton color="primary" routerLink="create">Tambah</a>
+          </div>
+
+          <div class="table-responsive">
+            <table cTable hover striped>
+              <thead>
+                <tr>
+                  <th>Nama</th>
+                  <th>Tanggal Lahir</th>
+                  <th>Gender</th>
+                  <th>Telepon</th>
+                  <th>Email</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (p of items(); track p.id) {
+                  <tr>
+                    <td>{{ p.full_name }}</td>
+                    <td>{{ p.date_of_birth }}</td>
+                    <td>{{ p.gender }}</td>
+                    <td>{{ p.contact_number }}</td>
+                    <td>{{ p.email }}</td>
+                    <td class="text-end">
+                      <a cButton color="secondary" size="sm" [routerLink]="[p.id]">Ubah</a>
+                      <button cButton color="danger" size="sm" class="ms-2" (click)="delete(p.id)">Hapus</button>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+</c-container>
