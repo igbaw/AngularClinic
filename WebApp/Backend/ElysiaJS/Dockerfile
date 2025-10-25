@@ -12,7 +12,6 @@ RUN bun install \
  && bunx prisma generate
 
 ENV NODE_ENV=production
-ENV PORT=8080
 
 EXPOSE 8080
 

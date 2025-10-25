@@ -4,12 +4,10 @@ services:
     env: docker
     plan: free
     rootDir: WebApp/Backend/ElysiaJS
-    dockerfilePath: WebApp/Backend/ElysiaJS/Dockerfile
+    dockerfilePath: Dockerfile
     autoDeploy: true
     healthCheckPath: /api/health
     envVars:
-      - key: PORT
-        value: 8080
       - key: PRISMA_PROVIDER
         value: postgresql
       - key: DATABASE_URL

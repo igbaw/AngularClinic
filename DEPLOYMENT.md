@@ -16,7 +16,6 @@ Steps:
 - Push this repo to GitHub/GitLab.
 - In Render: New + Blueprint, point to this repo. Render will read `render.yaml`.
 - In the service created (clinic-backend), set env vars:
-  - PORT=8080
   - PRISMA_PROVIDER=postgresql
   - DATABASE_URL=postgres connection string from Neon
   - AUTH_SECRET=generate a random string
