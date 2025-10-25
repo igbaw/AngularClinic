@@ -30,10 +30,10 @@
               <tbody>
                 @for (p of items(); track p.id) {
                   <tr>
-                    <td>{{ p.full_name }}</td>
-                    <td>{{ p.date_of_birth }}</td>
+                    <td>{{ p.fullName }}</td>
+                    <td>{{ p.dateOfBirth }}</td>
                     <td>{{ p.gender }}</td>
-                    <td>{{ p.contact_number }}</td>
+                    <td>{{ p.contactNumber }}</td>
                     <td>{{ p.email }}</td>
                     <td class="text-end">
                       <a cButton color="secondary" size="sm" [routerLink]="[p.id]">Ubah</a>

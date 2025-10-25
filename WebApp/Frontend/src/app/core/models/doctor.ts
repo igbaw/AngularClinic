@@ -1,12 +1,12 @@
 export interface Doctor {
   id: string;
-  full_name: string;
+  fullName: string;
   specialization?: string;
-  license_number: string;
+  licenseNumber: string;
   sip: string; // Surat Izin Praktik
-  contact_number?: string;
+  contactNumber?: string;
   email?: string;
   availability?: any; // JSON weekly schedule (kept flexible for MVP)
-  created_at: string; // ISO datetime
-  updated_at: string; // ISO datetime
+  createdAt: string; // ISO datetime
+  updatedAt: string; // ISO datetime
 }

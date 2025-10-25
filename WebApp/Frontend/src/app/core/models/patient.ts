@@ -1,12 +1,12 @@
 export interface Patient {
   id: string;
-  full_name: string;
-  date_of_birth: string; // ISO date
+  fullName: string;
+  dateOfBirth: string; // ISO date (YYYY-MM-DD)
   gender: 'Male' | 'Female' | 'Other';
-  contact_number?: string;
+  contactNumber?: string;
   email?: string;
   address?: string;
-  insurance_id?: string;
-  created_at: string; // ISO datetime
-  updated_at: string; // ISO datetime
+  insuranceId?: string;
+  createdAt: string; // ISO datetime
+  updatedAt: string; // ISO datetime
 }

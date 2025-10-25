@@ -1,17 +1,22 @@
-export type UserRole = 'Admin' | 'Doctor';
+export type UserRole = 'ADMIN' | 'DOCTOR' | 'RECEPTIONIST';
 
 export interface AuthUser {
   id: string;
-  name: string;
+  email: string;
+  fullName: string;
   role: UserRole;
+  active: boolean;
+  mustChangePassword: boolean;
+  lastLoginAt: string | null;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface LoginRequest {
-  username: string;
+  email: string;
   password: string;
 }
 
 export interface LoginResponse {
-  accessToken: string;
   user: AuthUser;
 }

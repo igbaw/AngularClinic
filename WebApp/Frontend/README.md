@@ -21,15 +21,33 @@
 
 [npm-coreui-download]: https://img.shields.io/npm/dm/@coreui/coreui.svg?style=flat-square
 
-# CoreUI Free Admin Dashboard Template for Angular 20
+# AngularClinic - Frontend
 
-CoreUI is meant to be the UX game changer. Pure & transparent code is devoid of redundant components, so the app is light enough to offer ultimate user
-experience. This means mobile devices also, where the navigation is just as easy and intuitive as on a desktop or laptop. The CoreUI Layout API lets you
-customize your project for almost any device – be it Mobile, Web or WebApp – CoreUI covers them all!
+AngularClinic is a comprehensive clinic management system for ENT (Ear, Nose, Throat) clinics. This frontend is built with Angular 20 and CoreUI 5, providing a modern, responsive admin interface for managing patients, doctors, appointments, and medical records.
 
-- [CoreUI Angular Admin Dashboard Template & UI Components Library](https://coreui.io/angular)
-- [CoreUI Angular Demo](https://coreui.io/angular/demo/5.0/free/)
+## Features
+
+- 👥 **Patient Management**: Complete CRUD operations with search and medical history
+- 👨‍⚕️ **Doctor Management**: Doctor profiles, schedules, and availability
+- 📅 **Appointment System**: Calendar view, booking, and status management
+- 📋 **Medical Records**: SOAP notes (Subjective, Objective, Assessment, Plan) format
+- 🔐 **Authentication**: Secure cookie-based session with role-based access control
+- 🌍 **Internationalization**: Multi-language support with ngx-translate
+- 📱 **Responsive Design**: Works seamlessly on desktop, tablet, and mobile
+
+## Tech Stack
+
+- **Framework**: Angular 20 (standalone components)
+- **UI Library**: CoreUI 5
+- **State Management**: Signals API
+- **HTTP Client**: Angular HttpClient with interceptors
+- **Calendar**: FullCalendar integration
+- **Routing**: Hash-based routing strategy
+
+## Related Links
+
 - [CoreUI Angular Docs](https://coreui.io/angular/docs/)
+- [Angular Documentation](https://angular.dev)
 
 ## Table of Contents
 
@@ -72,52 +90,78 @@ customize your project for almost any device – be it Mobile, Web or WebApp –
 
 ## Quick Start
 
-- [Download the latest release](https://github.com/coreui/coreui-free-angular-admin-template/)
-- Clone the repo: `git clone https://github.com/coreui/coreui-free-angular-admin-template.git`
+### Prerequisites
 
-#### <i>Prerequisites</i>
+Before you begin, make sure your development environment includes:
 
-Before you begin, make sure your development environment includes `Node.js®` and an `npm` package manager.
+- **Node.js**: Version `^20.19.0 || ^22.12.0 || ^24.0.0` (LTS recommended)
+  - Check version: `node -v`
+  - Download: [nodejs.org](https://nodejs.org/)
 
-###### Node.js
+- **npm**: Version `>= 9`
+  - Check version: `npm -v`
 
-[**Angular 20**](https://angular.io/guide/what-is-angular) requires `Node.js` LTS version `^20.19.0 || ^22.12.0 || ^24.0.0`.
-
-- To check your version, run `node -v` in a terminal/console window.
-- To get `Node.js`, go to [nodejs.org](https://nodejs.org/).
-
-###### Angular CLI
-
-Install the Angular CLI globally using a terminal/console window.
-
-```bash
-npm install -g @angular/cli
-```
+- **Angular CLI** (optional but recommended):
+  ```powershell
+  npm install -g @angular/cli
+  ```
 
 ### Installation
 
-``` bash
-$ npm install
-$ npm update
+1. **Install dependencies**:
+   ```powershell
+   npm install
+   ```
+
+2. **Start development server**:
+   ```powershell
+   npm start
+   ```
+   Opens browser automatically at http://localhost:4200
+
+3. **Or use the startup script** (from project root):
+   ```powershell
+   cd ..\..
+   .\start-dev.ps1
+   ```
+   This starts both frontend and backend together.
+
+### Available Commands
+
+```powershell
+# Start dev server (with browser auto-open)
+npm start
+
+# Build for production
+npm run build
+
+# Build for development (watch mode)
+npm run watch
+
+# Run unit tests
+npm test
+
+# Run specific test file
+ng test --include=src/app/<path>/<file>.spec.ts
+
+# Generate new component
+ng generate component <name>
 ```
 
-### Basic usage
+### Development Modes
 
-``` bash
-# dev server with hot reload at http://localhost:4200
-$ npm start
-```
+#### Mock API Mode (Default)
+The app runs with a mock API by default, using localStorage for data persistence. Great for frontend development without backend dependency.
 
-Navigate to [http://localhost:4200](http://localhost:4200). The app will automatically reload if you change any of the source files.
+- Configured in: `src/environments/environment.development.ts`
+- Setting: `useMockApi: true`
 
-#### Build
+#### Backend Integration Mode
+To connect to the real ElysiaJS backend:
 
-Run `build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-```bash
-# build for production with minification
-$ npm run build
-```
+1. Set `useMockApi: false` in `src/environments/environment.development.ts`
+2. Ensure backend is running at http://localhost:8080
+3. Use the startup script for convenience
 
 ## What's included
 

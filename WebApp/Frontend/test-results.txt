@@ -1,0 +1,83 @@
+
+> coreui-free-angular-admin-template@5.5.17 test
+> ng test --include=**/*.integration.spec.ts --watch=false --configuration=integration
+
+[33m>[39m Building...
+[32mΓêÜ[39m Building...
+[1mInitial chunk files[22m                  [2m | [22m[1mNames[22m                             [2m | [22m [1mRaw size[22m
+[32mchunk-73D47OPK.js[39m                    [2m | [22m[2m-[22m                                 [2m | [22m  [36m2.10 MB[39m[2m | [22m
+[32mpolyfills.js[39m                         [2m | [22m[2mpolyfills[22m                         [2m | [22m  [36m1.03 MB[39m[2m | [22m
+[32mstyles.css[39m                           [2m | [22m[2mstyles[22m                            [2m | [22m[36m354.59 kB[39m[2m | [22m
+[32mtest_main.js[39m                         [2m | [22m[2mtest_main[22m                         [2m | [22m[36m237.66 kB[39m[2m | [22m
+[32mchunk-AO2HOJXY.js[39m                    [2m | [22m[2m-[22m                                 [2m | [22m [36m88.08 kB[39m[2m | [22m
+[32mjasmine-cleanup-1.js[39m                 [2m | [22m[2mjasmine-cleanup-1[22m                 [2m | [22m [36m67.20 kB[39m[2m | [22m
+[32mspec-patients.integration.spec.js[39m    [2m | [22m[2mspec-patients.integration.spec[22m    [2m | [22m  [36m5.97 kB[39m[2m | [22m
+[32mspec-appointments.integration.spec.js[39m[2m | [22m[2mspec-appointments.integration.spec[22m[2m | [22m  [36m5.75 kB[39m[2m | [22m
+[32mspec-doctors.integration.spec.js[39m     [2m | [22m[2mspec-doctors.integration.spec[22m     [2m | [22m  [36m3.66 kB[39m[2m | [22m
+[32mchunk-EVSPGG2W.js[39m                    [2m | [22m[2m-[22m                                 [2m | [22m  [36m1.64 kB[39m[2m | [22m
+[32mjasmine-cleanup-0.js[39m                 [2m | [22m[2mjasmine-cleanup-0[22m                 [2m | [22m[36m519 bytes[39m[2m | [22m
+
+[1m [22m                                    [2m | [22m[1mInitial total[22m                     [2m | [22m  [1m3.90 MB[22m
+
+Application bundle generation complete. [17.697 seconds] - 2025-10-24T07:51:49.151Z
+
+[32m24 10 2025 15:51:58.619:INFO [karma-server]: [39mKarma v6.4.4 server started at http://localhost:9876/
+[32m24 10 2025 15:51:58.621:INFO [launcher]: [39mLaunching browsers Chrome_Custom with concurrency unlimited
+[32m24 10 2025 15:51:58.680:INFO [launcher]: [39mStarting browser Chrome
+[32m24 10 2025 15:52:10.530:INFO [Chrome 141.0.0.0 (Windows 10)]: [39mConnected on socket xUmOK22LdExUZqc5AAAB with id 53756612
+Chrome 141.0.0.0 (Windows 10): Executed 0 of 12[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KChrome 141.0.0.0 (Windows 10): Executed 1 of 12[32m SUCCESS[39m (0 secs / 0.151 secs)
+[1A[2KChrome 141.0.0.0 (Windows 10): Executed 2 of 12[32m SUCCESS[39m (0 secs / 0.242 secs)
+[1A[2K[31mChrome 141.0.0.0 (Windows 10) Doctors API Integration Tests should perform full CRUD on doctor FAILED[39m
+	Failed: Failed to update: Http failure response for http://localhost:8080/api/doctors/0d52318d-1040-495f-bbe9-9e1696b7c8b2: 422 Unprocessable Entity
+	    at <Jasmine>
+	    at Object.error (src/app/features/doctors/doctors.integration.spec.ts:116:17)
+	    at ConsumerObserver.error (node_modules/rxjs/dist/esm/internal/Subscriber.js:102:33)
+	    at SafeSubscriber._error (node_modules/rxjs/dist/esm/internal/Subscriber.js:64:30)
+	    at SafeSubscriber.error (node_modules/rxjs/dist/esm/internal/Subscriber.js:40:18)
+	    at OperatorSubscriber._error (node_modules/rxjs/dist/esm/internal/Subscriber.js:64:30)
+Chrome 141.0.0.0 (Windows 10): Executed 3 of 12[31m (1 FAILED)[39m (0 secs / 1.091 secs)
+[1A[2KChrome 141.0.0.0 (Windows 10): Executed 4 of 12[31m (1 FAILED)[39m (0 secs / 1.24 secs)
+[1A[2KChrome 141.0.0.0 (Windows 10): Executed 5 of 12[31m (1 FAILED)[39m (0 secs / 1.434 secs)
+[1A[2K[31mChrome 141.0.0.0 (Windows 10) Appointments API Integration Tests should update appointment status FAILED[39m
+	Failed: Failed to update appointment: Http failure response for http://localhost:8080/api/appointments/3d444684-1cab-43ab-8e7c-a2f6b3ae9b13: 422 Unprocessable Entity
+	    at <Jasmine>
+	    at Object.error (src/app/features/appointments/appointments.integration.spec.ts:173:13)
+	    at ConsumerObserver.error (node_modules/rxjs/dist/esm/internal/Subscriber.js:102:33)
+	    at SafeSubscriber._error (node_modules/rxjs/dist/esm/internal/Subscriber.js:64:30)
+	    at SafeSubscriber.error (node_modules/rxjs/dist/esm/internal/Subscriber.js:40:18)
+	    at OperatorSubscriber._error (node_modules/rxjs/dist/esm/internal/Subscriber.js:64:30)
+Chrome 141.0.0.0 (Windows 10): Executed 6 of 12[31m (2 FAILED)[39m (0 secs / 1.622 secs)
+[1A[2KWARN: [36m'Spec 'Appointments API Integration Tests should delete appointment' has no expectations.'[39m
+Chrome 141.0.0.0 (Windows 10): Executed 6 of 12[31m (2 FAILED)[39m (0 secs / 1.622 secs)
+WARN: 'Spec 'Appointments API Integration Tests should delete appointment' has no expectations.'
+[1A[2KChrome 141.0.0.0 (Windows 10): Executed 7 of 12[31m (2 FAILED)[39m (0 secs / 1.786 secs)
+[1A[2KChrome 141.0.0.0 (Windows 10): Executed 8 of 12[31m (2 FAILED)[39m (0 secs / 1.795 secs)
+[1A[2KChrome 141.0.0.0 (Windows 10): Executed 9 of 12[31m (2 FAILED)[39m (0 secs / 1.849 secs)
+[1A[2K[31mChrome 141.0.0.0 (Windows 10) Patients API Integration Tests should create a new patient FAILED[39m
+	Expected '1990-01-01T00:00:00.000Z' to be '1990-01-01'.
+	    at <Jasmine>
+	    at Object.next (src/app/features/patients/patients.integration.spec.ts:77:39)
+	    at ConsumerObserver.next (node_modules/rxjs/dist/esm/internal/Subscriber.js:91:33)
+	    at SafeSubscriber._next (node_modules/rxjs/dist/esm/internal/Subscriber.js:60:26)
+	    at SafeSubscriber.next (node_modules/rxjs/dist/esm/internal/Subscriber.js:31:18)
+Chrome 141.0.0.0 (Windows 10): Executed 10 of 12[31m (3 FAILED)[39m (0 secs / 1.917 secs)
+[1A[2K[31mChrome 141.0.0.0 (Windows 10) Patients API Integration Tests should create, read, update, and delete a patient (full CRUD) FAILED[39m
+	Failed: Failed to update patient: Http failure response for http://localhost:8080/api/patients/82d33405-fb10-40c3-be6a-71a454b8c683: 422 Unprocessable Entity
+	    at <Jasmine>
+	    at Object.error (src/app/features/patients/patients.integration.spec.ts:145:17)
+	    at ConsumerObserver.error (node_modules/rxjs/dist/esm/internal/Subscriber.js:102:33)
+	    at SafeSubscriber._error (node_modules/rxjs/dist/esm/internal/Subscriber.js:64:30)
+	    at SafeSubscriber.error (node_modules/rxjs/dist/esm/internal/Subscriber.js:40:18)
+	    at OperatorSubscriber._error (node_modules/rxjs/dist/esm/internal/Subscriber.js:64:30)
+Chrome 141.0.0.0 (Windows 10): Executed 11 of 12[31m (4 FAILED)[39m (0 secs / 1.964 secs)
+[1A[2K[31mChrome 141.0.0.0 (Windows 10) Patients API Integration Tests should validate patient data on backend FAILED[39m
+	Expected 500 to be less than 500.
+	    at <Jasmine>
+	    at Object.error (src/app/features/patients/patients.integration.spec.ts:213:28)
+	    at ConsumerObserver.error (node_modules/rxjs/dist/esm/internal/Subscriber.js:102:33)
+	    at SafeSubscriber._error (node_modules/rxjs/dist/esm/internal/Subscriber.js:64:30)
+	    at SafeSubscriber.error (node_modules/rxjs/dist/esm/internal/Subscriber.js:40:18)
+Chrome 141.0.0.0 (Windows 10): Executed 12 of 12[31m (5 FAILED)[39m (0 secs / 2.024 secs)
+[1A[2KChrome 141.0.0.0 (Windows 10): Executed 12 of 12[31m (5 FAILED)[39m (2.056 secs / 2.024 secs)
+[31mTOTAL: 5 FAILED, 7 SUCCESS[39m

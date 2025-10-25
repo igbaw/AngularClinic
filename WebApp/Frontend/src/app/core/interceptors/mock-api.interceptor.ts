@@ -74,8 +74,8 @@ function seedIfNeeded() {
   const currentPatients = readPatients();
   if (currentPatients.length === 0) {
     const seedPatients: Patient[] = [
-      { id: uuidv4(), full_name: 'Budi Santoso', date_of_birth: '1985-03-12', gender: 'Male', contact_number: '08123456789', email: 'budi@example.com', address: 'Jakarta', created_at: now, updated_at: now },
-      { id: uuidv4(), full_name: 'Siti Aminah', date_of_birth: '1990-07-22', gender: 'Female', contact_number: '08129876543', email: 'siti@example.com', address: 'Bandung', created_at: now, updated_at: now }
+      { id: uuidv4(), fullName: 'Budi Santoso', dateOfBirth: '1985-03-12', gender: 'Male', contactNumber: '08123456789', email: 'budi@example.com', address: 'Jakarta', createdAt: now, updatedAt: now },
+      { id: uuidv4(), fullName: 'Siti Aminah', dateOfBirth: '1990-07-22', gender: 'Female', contactNumber: '08129876543', email: 'siti@example.com', address: 'Bandung', createdAt: now, updatedAt: now }
     ];
     writePatients(seedPatients);
   }
@@ -83,7 +83,7 @@ function seedIfNeeded() {
   const currentDoctors = readDoctors();
   if (currentDoctors.length === 0) {
     const seedDoctors: Doctor[] = [
-      { id: uuidv4(), full_name: 'dr. Andi Pratama, Sp.THT', specialization: 'THT', license_number: 'LIC-123456', sip: 'SIP-987654', contact_number: '0812000111', email: 'andi@example.com', availability: { Mon: ['17:00-19:00'] }, created_at: now, updated_at: now }
+      { id: uuidv4(), fullName: 'dr. Andi Pratama, Sp.THT', specialization: 'THT', licenseNumber: 'LIC-123456', sip: 'SIP-987654', contactNumber: '0812000111', email: 'andi@example.com', availability: { Mon: ['17:00-19:00'] }, createdAt: now, updatedAt: now }
     ];
     writeDoctors(seedDoctors);
   }
@@ -97,13 +97,13 @@ function seedIfNeeded() {
       start.setMinutes(0,0,0);
       const appt: Appointment = {
         id: uuidv4(),
-        patient_id: p.id,
-        doctor_id: d.id,
-        appointment_date: new Date(start.getTime() + 60*60*1000).toISOString(),
+        patientId: p.id,
+        doctorId: d.id,
+        appointmentDate: new Date(start.getTime() + 60*60*1000).toISOString(),
         status: 'Confirmed',
         notes: 'Kunjungan awal',
-        created_at: now,
-        updated_at: now
+        createdAt: now,
+        updatedAt: now
       };
       writeAppointments([appt]);
     }
@@ -144,10 +144,10 @@ export const mockApiInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, nex
   // Routes
   if (url === '/auth/login' && method === 'POST') {
     const body = req.body as LoginRequest;
-    const role = body.username?.toLowerCase().includes('admin') ? 'Admin' : 'Doctor';
-    const payload = { sub: uuidv4(), name: body.username || 'User', role };
+    const role = body.email?.toLowerCase().includes('admin') ? 'Admin' : 'Doctor';
+    const payload = { sub: uuidv4(), fullName: body.email || 'User', role };
     const base64 = btoa(JSON.stringify({ alg: 'none', typ: 'JWT' })) + '.' + btoa(JSON.stringify(payload)) + '.';
-    const resp: LoginResponse = { accessToken: base64, user: { id: payload.sub, name: payload.name, role } as any };
+    const resp: LoginResponse = { user: { id: payload.sub, fullName: payload.fullName, role } as any };
     return ok(resp);
   }
 
@@ -157,7 +157,7 @@ export const mockApiInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, nex
 
     if (method === 'GET' && parts.length === 1) {
       const q = (req.params.get('q') || '').toLowerCase();
-      const filtered = q ? items.filter(p => (p.full_name + (p.contact_number ?? '')).toLowerCase().includes(q)) : items;
+      const filtered = q ? items.filter(p => (p.fullName + (p.contactNumber ?? '')).toLowerCase().includes(q)) : items;
       return ok({ items: filtered, total: filtered.length });
     }
 
@@ -172,15 +172,15 @@ export const mockApiInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, nex
       const body = req.body as Partial<Patient>;
       const item: Patient = {
         id: uuidv4(),
-        full_name: body.full_name || '',
-        date_of_birth: body.date_of_birth || '2000-01-01',
+        fullName: body.fullName || '',
+        dateOfBirth: body.dateOfBirth || '2000-01-01',
         gender: (body.gender as any) || 'Other',
-        contact_number: body.contact_number,
+        contactNumber: body.contactNumber,
         email: body.email,
         address: body.address,
-        insurance_id: body.insurance_id,
-        created_at: now,
-        updated_at: now
+        insuranceId: body.insuranceId,
+        createdAt: now,
+        updatedAt: now
       };
       items.push(item);
       writePatients(items);
@@ -192,7 +192,7 @@ export const mockApiInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, nex
       const idx = items.findIndex(p => p.id === id);
       if (idx === -1) return ok(null as any);
       const now = new Date().toISOString();
-      items[idx] = { ...items[idx], ...req.body, id, updated_at: now } as Patient;
+      items[idx] = { ...items[idx], ...req.body, id, updatedAt: now } as Patient;
       writePatients(items);
       return ok(items[idx]);
     }
@@ -211,7 +211,7 @@ export const mockApiInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, nex
 
     if (method === 'GET' && parts.length === 1) {
       const q = (req.params.get('q') || '').toLowerCase();
-      const filtered = q ? items.filter(d => (d.full_name + (d.contact_number ?? '') + (d.specialization ?? '')).toLowerCase().includes(q)) : items;
+      const filtered = q ? items.filter(d => (d.fullName + (d.contactNumber ?? '') + (d.specialization ?? '')).toLowerCase().includes(q)) : items;
       return ok({ items: filtered, total: filtered.length });
     }
 
@@ -226,15 +226,15 @@ export const mockApiInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, nex
       const body = req.body as Partial<Doctor>;
       const item: Doctor = {
         id: uuidv4(),
-        full_name: body.full_name || '',
+        fullName: body.fullName || '',
         specialization: body.specialization,
-        license_number: body.license_number || '',
+        licenseNumber: body.licenseNumber || '',
         sip: body.sip || '',
-        contact_number: body.contact_number,
+        contactNumber: body.contactNumber,
         email: body.email,
         availability: body.availability,
-        created_at: now,
-        updated_at: now
+        createdAt: now,
+        updatedAt: now
       };
       items.push(item);
       writeDoctors(items);
@@ -246,7 +246,7 @@ export const mockApiInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, nex
       const idx = items.findIndex(d => d.id === id);
       if (idx === -1) return ok(null as any);
       const now = new Date().toISOString();
-      items[idx] = { ...items[idx], ...req.body, id, updated_at: now } as Doctor;
+      items[idx] = { ...items[idx], ...req.body, id, updatedAt: now } as Doctor;
       writeDoctors(items);
       return ok(items[idx]);
     }
@@ -278,13 +278,13 @@ export const mockApiInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, nex
       const body = req.body as Partial<Appointment>;
       const item: Appointment = {
         id: uuidv4(),
-        patient_id: body.patient_id!,
-        doctor_id: body.doctor_id!,
-        appointment_date: body.appointment_date || new Date().toISOString(),
+        patientId: body.patientId!,
+        doctorId: body.doctorId!,
+        appointmentDate: body.appointmentDate || new Date().toISOString(),
         status: (body.status as any) || 'Pending',
         notes: body.notes,
-        created_at: now,
-        updated_at: now
+        createdAt: now,
+        updatedAt: now
       };
       items.push(item);
       writeAppointments(items);
@@ -296,7 +296,7 @@ export const mockApiInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, nex
       const idx = items.findIndex(a => a.id === id);
       if (idx === -1) return ok(null as any);
       const now = new Date().toISOString();
-      items[idx] = { ...items[idx], ...req.body, id, updated_at: now } as Appointment;
+      items[idx] = { ...items[idx], ...req.body, id, updatedAt: now } as Appointment;
       writeAppointments(items);
       return ok(items[idx]);
     }
@@ -315,7 +315,7 @@ export const mockApiInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, nex
 
     if (method === 'GET' && parts.length === 1) {
       const patientId = req.params.get('patientId');
-      const filtered = patientId ? items.filter(r => r.patient_id === patientId) : items;
+      const filtered = patientId ? items.filter(r => r.patientId === patientId) : items;
       return ok({ items: filtered, total: filtered.length });
     }
 
@@ -330,18 +330,18 @@ export const mockApiInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, nex
       const body = req.body as Partial<MedicalRecord>;
       const item: MedicalRecord = {
         id: uuidv4(),
-        patient_id: body.patient_id!,
-        doctor_id: body.doctor_id!,
-        record_number: body.record_number || uuidv4().slice(0,8).toUpperCase(),
+        patientId: body.patientId!,
+        doctorId: body.doctorId!,
+        recordNumber: body.recordNumber || uuidv4().slice(0,8).toUpperCase(),
         subjective: body.subjective || '',
         objective: body.objective || '',
         assessment: body.assessment || '',
         plan: body.plan || '',
         attachments: body.attachments || [],
-        signed_by: body.signed_by,
-        signed_at: body.signed_at,
-        created_at: now,
-        updated_at: now
+        signedBy: body.signedBy,
+        signedAt: body.signedAt,
+        createdAt: now,
+        updatedAt: now
       };
       items.push(item);
       writeMedicalRecords(items);
@@ -353,7 +353,7 @@ export const mockApiInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, nex
       const idx = items.findIndex(r => r.id === id);
       if (idx === -1) return ok(null as any);
       const now = new Date().toISOString();
-      items[idx] = { ...items[idx], ...req.body, id, updated_at: now } as MedicalRecord;
+      items[idx] = { ...items[idx], ...req.body, id, updatedAt: now } as MedicalRecord;
       writeMedicalRecords(items);
       return ok(items[idx]);
     }

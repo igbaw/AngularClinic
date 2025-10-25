@@ -8,10 +8,10 @@
               <div class="col-md-6">
                 <div class="mb-3">
                   <label class="form-label">Pasien</label>
-                  <select cFormControl formControlName="patient_id">
+                  <select cSelect cFormControl formControlName="patientId">
                     <option [ngValue]="''">Pilih...</option>
                     @for (p of patients(); track p.id) {
-                      <option [ngValue]="p.id">{{ p.full_name }}</option>
+                      <option [ngValue]="p.id">{{ p.fullName }}</option>
                     }
                   </select>
                 </div>
@@ -19,10 +19,10 @@
               <div class="col-md-6">
                 <div class="mb-3">
                   <label class="form-label">Dokter</label>
-                  <select cFormControl formControlName="doctor_id">
+                  <select cSelect cFormControl formControlName="doctorId">
                     <option [ngValue]="''">Pilih...</option>
                     @for (d of doctors(); track d.id) {
-                      <option [ngValue]="d.id">{{ d.full_name }}</option>
+                      <option [ngValue]="d.id">{{ d.fullName }}</option>
                     }
                   </select>
                 </div>
@@ -33,7 +33,7 @@
               <div class="col-md-4">
                 <div class="mb-3">
                   <label class="form-label">No. Rekam Medis</label>
-                  <input cFormControl formControlName="record_number" />
+                  <input cFormControl formControlName="recordNumber" />
                 </div>
               </div>
             </div>
@@ -75,7 +75,7 @@
             </div>
             <div class="mb-3" *ngIf="form.get('signed')?.value">
               <label class="form-label">Nama Dokter untuk TTD</label>
-              <input cFormControl formControlName="signed_by" placeholder="Nama Dokter" />
+              <input cFormControl formControlName="signedBy" placeholder="Nama Dokter" />
             </div>
 
             <div class="d-flex justify-content-between">

@@ -6,29 +6,29 @@
           <form cForm [formGroup]="form" (ngSubmit)="save()">
             <div class="mb-3">
               <label class="form-label">Pasien</label>
-              <select cFormControl formControlName="patient_id">
+              <select cSelect cFormControl formControlName="patientId">
                 <option [ngValue]="''">Pilih...</option>
                 @for (p of patients(); track p.id) {
-                  <option [ngValue]="p.id">{{ p.full_name }}</option>
+                  <option [ngValue]="p.id">{{ p.fullName }}</option>
                 }
               </select>
             </div>
             <div class="mb-3">
               <label class="form-label">Dokter</label>
-              <select cFormControl formControlName="doctor_id">
+              <select cSelect cFormControl formControlName="doctorId">
                 <option [ngValue]="''">Pilih...</option>
                 @for (d of doctors(); track d.id) {
-                  <option [ngValue]="d.id">{{ d.full_name }}</option>
+                  <option [ngValue]="d.id">{{ d.fullName }}</option>
                 }
               </select>
             </div>
             <div class="mb-3">
               <label class="form-label">Tanggal & Waktu</label>
-              <input cFormControl type="datetime-local" formControlName="appointment_date" />
+              <input cFormControl type="datetime-local" formControlName="appointmentDate" />
             </div>
             <div class="mb-3">
               <label class="form-label">Status</label>
-              <select cFormControl formControlName="status">
+              <select cSelect cFormControl formControlName="status">
                 <option value="Pending">Pending</option>
                 <option value="Confirmed">Confirmed</option>
                 <option value="Cancelled">Cancelled</option>

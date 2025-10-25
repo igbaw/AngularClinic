@@ -115,6 +115,16 @@
               "src/scss/styles.scss"
             ],
             "scripts": []
+          },
+          "configurations": {
+            "integration": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.integration.ts"
+                }
+              ]
+            }
           }
         }
       }

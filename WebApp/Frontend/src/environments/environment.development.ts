@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
-  apiBaseUrl: '/api',
-  useMockApi: true,
+  apiBaseUrl: 'http://localhost:8080/api',
+  useMockApi: false,
   defaultLang: 'id',
   supportedLangs: ['id', 'en'],
   clinicHours: { start: '17:00', end: '19:00' },

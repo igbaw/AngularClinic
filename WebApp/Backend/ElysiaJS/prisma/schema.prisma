@@ -1,0 +1,149 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id                 String   @id @default(uuid())
+  email              String   @unique
+  passwordHash       String
+  fullName           String
+  role               String @default("RECEPTIONIST")
+  active             Boolean  @default(true)
+  mustChangePassword Boolean  @default(false)
+  lastLoginAt        DateTime?
+  doctor             Doctor?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+model Patient {
+  id             String          @id @default(uuid())
+  fullName       String
+  dateOfBirth    DateTime
+  gender         String
+  contactNumber  String?
+  email          String?
+  address        String?
+  insuranceId    String?
+  medicalRecords MedicalRecord[]
+  appointments   Appointment[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  prescriptions  Prescription[]
+}
+
+model Doctor {
+  id             String          @id @default(uuid())
+  fullName       String
+  specialization String?
+  licenseNumber  String
+  sip            String
+  contactNumber  String?
+  email          String?
+  availability   String?
+  userId         String? @unique
+  user           User?   @relation(fields: [userId], references: [id])
+  appointments   Appointment[]
+  medicalRecords MedicalRecord[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  prescriptions  Prescription[]
+}
+
+model Appointment {
+  id              String   @id @default(uuid())
+  patientId       String
+  doctorId        String
+  appointmentDate DateTime
+  status          String
+  notes           String?
+  patient         Patient  @relation(fields: [patientId], references: [id])
+  doctor          Doctor   @relation(fields: [doctorId], references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  prescription    Prescription?
+
+  @@index([doctorId, appointmentDate])
+}
+
+model MedicalRecord {
+  id           String   @id @default(uuid())
+  patientId    String
+  doctorId     String
+  recordNumber String   @unique
+  subjective   String
+  objective    String
+  assessment   String
+  plan         String
+  attachments  FileAsset[]
+  patient      Patient  @relation(fields: [patientId], references: [id])
+  doctor       Doctor   @relation(fields: [doctorId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model FileAsset {
+  id        String   @id @default(uuid())
+  url       String
+  fileName  String
+  mimeType  String
+  size      Int
+  recordId  String?
+  record    MedicalRecord? @relation(fields: [recordId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model InventoryItem {
+  id         String   @id @default(uuid())
+  name       String
+  sku        String?
+  batch      String?
+  expiryDate DateTime?
+  quantity   Int
+  buyPrice   Decimal?
+  sellPrice  Decimal?
+  movements  InventoryMovement[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  prescriptionItems PrescriptionItem[]
+}
+
+model InventoryMovement {
+  id        String   @id @default(uuid())
+  itemId    String
+  change    Int
+  reason    String?
+  createdAt DateTime @default(now())
+  item      InventoryItem @relation(fields: [itemId], references: [id])
+}
+
+model Prescription {
+  id            String   @id @default(uuid())
+  patientId     String
+  doctorId      String
+  appointmentId String? @unique
+  items         PrescriptionItem[]
+  patient       Patient  @relation(fields: [patientId], references: [id])
+  doctor        Doctor   @relation(fields: [doctorId], references: [id])
+  appointment   Appointment? @relation(fields: [appointmentId], references: [id])
+  createdAt     DateTime @default(now())
+}
+
+model PrescriptionItem {
+  id              String   @id @default(uuid())
+  prescriptionId  String
+  inventoryItemId String?
+  name            String
+  dosage          String?
+  frequency       String?
+  duration        String?
+  quantity        Int
+  prescription    Prescription @relation(fields: [prescriptionId], references: [id])
+  inventoryItem   InventoryItem? @relation(fields: [inventoryItemId], references: [id])
+}

@@ -45,17 +45,20 @@ export class LoginComponent {
   private router = inject(Router);
 
   form = this.fb.group({
-    username: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]]
   });
 
   submit() {
     if (this.form.invalid) return;
-    const { username, password } = this.form.getRawValue();
-    this.auth.login({ username: username!, password: password! }).subscribe({
-      next: (resp) => {
-        this.auth.setSession(resp);
+    const { email, password } = this.form.getRawValue();
+    this.auth.login({ email: email!, password: password! }).subscribe({
+      next: () => {
         this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        console.error('Login failed:', err);
+        // TODO: Show error message to user
       }
     });
   }

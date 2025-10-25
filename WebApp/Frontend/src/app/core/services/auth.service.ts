@@ -1,42 +1,44 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { ApiService } from './api.service';
 import { AuthUser, LoginRequest, LoginResponse, UserRole } from '../models/auth';
-
-const TOKEN_KEY = 'accessToken';
-const USER_KEY = 'authUser';
+import { tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly _token = signal<string | null>(localStorage.getItem(TOKEN_KEY));
-  private readonly _user = signal<AuthUser | null>(this.readUser());
+  private readonly _user = signal<AuthUser | null>(null);
 
-  readonly isAuthenticated = computed(() => !!this._token());
+  readonly isAuthenticated = computed(() => !!this._user());
   readonly user = computed(() => this._user());
   readonly role = computed<UserRole | null>(() => this._user()?.role ?? null);
 
   constructor(private api: ApiService) {}
 
-  login(req: LoginRequest) {
-    return this.api.post<LoginResponse>('/auth/login', req);
+  /**
+   * Bootstrap session by checking /auth/me
+   * Call this on app init
+   */
+  initSession() {
+    return this.api.get<LoginResponse>('/auth/me').pipe(
+      tap(resp => this._user.set(resp.user))
+    );
   }
 
-  setSession(resp: LoginResponse) {
-    localStorage.setItem(TOKEN_KEY, resp.accessToken);
-    localStorage.setItem(USER_KEY, JSON.stringify(resp.user));
-    this._token.set(resp.accessToken);
-    this._user.set(resp.user);
+  login(req: LoginRequest) {
+    return this.api.post<LoginResponse>('/auth/login', req).pipe(
+      tap(resp => this._user.set(resp.user))
+    );
   }
 
   logout() {
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(USER_KEY);
-    this._token.set(null);
-    this._user.set(null);
+    return this.api.post<{ message: string }>('/auth/logout', {}).pipe(
+      tap(() => this._user.set(null))
+    );
   }
 
-  private readUser(): AuthUser | null {
-    const raw = localStorage.getItem(USER_KEY);
-    if (!raw) return null;
-    try { return JSON.parse(raw) as AuthUser; } catch { return null; }
+  changePassword(oldPassword: string, newPassword: string) {
+    return this.api.post<{ message: string }>('/auth/change-password', {
+      oldPassword,
+      newPassword
+    });
   }
 }

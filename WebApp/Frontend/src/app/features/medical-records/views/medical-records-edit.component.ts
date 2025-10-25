@@ -8,13 +8,13 @@ import { Patient } from '../../../core/models/patient';
 import { Doctor } from '../../../core/models/doctor';
 import { Attachment } from '../../../core/models/common';
 import { environment } from '../../../../environments/environment';
-import { ButtonDirective, CardBodyComponent, CardComponent, ColComponent, ContainerComponent, FormControlDirective, FormDirective, RowComponent } from '@coreui/angular';
+import { ButtonDirective, CardBodyComponent, CardComponent, ColComponent, ContainerComponent, FormControlDirective, FormDirective, RowComponent, FormSelectDirective } from '@coreui/angular';
 
 @Component({
   selector: 'app-medical-records-edit',
   templateUrl: './medical-records-edit.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, ContainerComponent, RowComponent, ColComponent, CardComponent, CardBodyComponent, FormDirective, FormControlDirective, ButtonDirective]
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, ContainerComponent, RowComponent, ColComponent, CardComponent, CardBodyComponent, FormDirective, FormControlDirective, FormSelectDirective, ButtonDirective]
 })
 export class MedicalRecordsEditComponent implements OnInit {
   private fb = inject(FormBuilder);
@@ -28,15 +28,15 @@ export class MedicalRecordsEditComponent implements OnInit {
   attachments = signal<Attachment[]>([]);
 
   form = this.fb.group({
-    patient_id: ['', Validators.required],
-    doctor_id: ['', Validators.required],
-    record_number: ['', Validators.required],
+    patientId: ['', Validators.required],
+    doctorId: ['', Validators.required],
+    recordNumber: ['', Validators.required],
     subjective: ['', Validators.required],
     objective: ['', Validators.required],
     assessment: ['', Validators.required],
     plan: ['', Validators.required],
     signed: [false],
-    signed_by: ['']
+    signedBy: ['']
   });
 
   ngOnInit() {
@@ -49,17 +49,22 @@ export class MedicalRecordsEditComponent implements OnInit {
         if (!rec) return;
         this.attachments.set(rec.attachments ?? []);
         this.form.patchValue({
-          patient_id: rec.patient_id,
-          doctor_id: rec.doctor_id,
-          record_number: rec.record_number,
+          patientId: rec.patientId,
+          doctorId: rec.doctorId,
+          recordNumber: rec.recordNumber,
           subjective: rec.subjective,
           objective: rec.objective,
           assessment: rec.assessment,
           plan: rec.plan,
-          signed: !!rec.signed_at,
-          signed_by: rec.signed_by ?? ''
+          signed: !!rec.signedAt,
+          signedBy: rec.signedBy ?? ''
         });
       }});
+    } else {
+      // Prefill record number for convenience
+      this.api.get<{ recordNumber: string }>(`/medical-records/generate-record-number`).subscribe({
+        next: r => this.form.patchValue({ recordNumber: r.recordNumber })
+      });
     }
   }
 
@@ -96,16 +101,16 @@ export class MedicalRecordsEditComponent implements OnInit {
     if (this.form.invalid) return;
     const v = this.form.getRawValue();
     const payload: Partial<MedicalRecord> = {
-      patient_id: v.patient_id!,
-      doctor_id: v.doctor_id!,
-      record_number: v.record_number!,
+      patientId: v.patientId!,
+      doctorId: v.doctorId!,
+      recordNumber: v.recordNumber!,
       subjective: v.subjective!,
       objective: v.objective!,
       assessment: v.assessment!,
       plan: v.plan!,
       attachments: this.attachments(),
-      signed_by: v.signed ? (v.signed_by || 'Dokter') : undefined,
-      signed_at: v.signed ? new Date().toISOString() : undefined
+      signedBy: v.signed ? (v.signedBy || 'Dokter') : undefined,
+      signedAt: v.signed ? new Date().toISOString() : undefined
     };
 
     if (this.id) {

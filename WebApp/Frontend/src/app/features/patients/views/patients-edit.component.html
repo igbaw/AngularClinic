@@ -6,15 +6,15 @@
           <form cForm [formGroup]="form" (ngSubmit)="save()">
             <div class="mb-3">
               <label class="form-label">Nama Lengkap</label>
-              <input cFormControl formControlName="full_name" />
+              <input cFormControl formControlName="fullName" />
             </div>
             <div class="mb-3">
               <label class="form-label">Tanggal Lahir</label>
-              <input cFormControl type="date" formControlName="date_of_birth" />
+              <input cFormControl type="date" formControlName="dateOfBirth" />
             </div>
             <div class="mb-3">
               <label class="form-label">Jenis Kelamin</label>
-              <select cFormControl formControlName="gender">
+              <select cSelect cFormControl formControlName="gender">
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Other">Other</option>
@@ -22,7 +22,7 @@
             </div>
             <div class="mb-3">
               <label class="form-label">Telepon</label>
-              <input cFormControl formControlName="contact_number" />
+              <input cFormControl formControlName="contactNumber" />
             </div>
             <div class="mb-3">
               <label class="form-label">Email</label>
@@ -34,7 +34,7 @@
             </div>
             <div class="mb-3">
               <label class="form-label">No. Asuransi/BPJS</label>
-              <input cFormControl formControlName="insurance_id" />
+              <input cFormControl formControlName="insuranceId" />
             </div>
             <div class="d-flex justify-content-between">
               <a cButton color="secondary" routerLink="../">Batal</a>

@@ -20,11 +20,11 @@ export class DoctorsEditComponent implements OnInit {
 
   id: string | null = null;
   form = this.fb.group({
-    full_name: ['', [Validators.required]],
+    fullName: ['', [Validators.required]],
     specialization: [''],
-    license_number: ['', [Validators.required]],
+    licenseNumber: ['', [Validators.required]],
     sip: ['', [Validators.required]],
-    contact_number: [''],
+    contactNumber: [''],
     email: [''],
     availability: [''] // JSON string for MVP
   });
@@ -33,11 +33,11 @@ export class DoctorsEditComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
       this.api.get<Doctor>(`/doctors/${this.id}`).subscribe({ next: (d) => d && this.form.patchValue({
-        full_name: d.full_name,
+        fullName: d.fullName,
         specialization: d.specialization ?? '',
-        license_number: d.license_number,
+        licenseNumber: d.licenseNumber,
         sip: d.sip,
-        contact_number: d.contact_number ?? '',
+        contactNumber: d.contactNumber ?? '',
         email: d.email ?? '',
         availability: d.availability ? JSON.stringify(d.availability) : ''
       }) });
@@ -48,11 +48,11 @@ export class DoctorsEditComponent implements OnInit {
     if (this.form.invalid) return;
     const value = this.form.getRawValue();
     const payload: Partial<Doctor> = {
-      full_name: value.full_name!,
+      fullName: value.fullName!,
       specialization: value.specialization || undefined,
-      license_number: value.license_number!,
+      licenseNumber: value.licenseNumber!,
       sip: value.sip!,
-      contact_number: value.contact_number || undefined,
+      contactNumber: value.contactNumber || undefined,
       email: value.email || undefined,
       availability: (() => { try { return value.availability ? JSON.parse(value.availability) : undefined; } catch { return undefined; } })()
     };

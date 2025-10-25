@@ -4,13 +4,13 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from '../../../core/services/api.service';
 import { Patient } from '../../../core/models/patient';
-import { ButtonDirective, CardBodyComponent, CardComponent, ColComponent, ContainerComponent, FormControlDirective, FormDirective, InputGroupComponent, InputGroupTextDirective, RowComponent } from '@coreui/angular';
+import { ButtonDirective, CardBodyComponent, CardComponent, ColComponent, ContainerComponent, FormControlDirective, FormDirective, InputGroupComponent, InputGroupTextDirective, RowComponent, FormSelectDirective } from '@coreui/angular';
 
 @Component({
   selector: 'app-patients-edit',
   templateUrl: './patients-edit.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, ContainerComponent, RowComponent, ColComponent, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, FormControlDirective, ButtonDirective]
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, ContainerComponent, RowComponent, ColComponent, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, FormControlDirective, FormSelectDirective, ButtonDirective]
 })
 export class PatientsEditComponent implements OnInit {
   private fb = inject(FormBuilder);
@@ -20,13 +20,13 @@ export class PatientsEditComponent implements OnInit {
 
   id: string | null = null;
   form = this.fb.group({
-    full_name: ['', [Validators.required]],
-    date_of_birth: ['', [Validators.required]],
+    fullName: ['', [Validators.required]],
+    dateOfBirth: ['', [Validators.required]],
     gender: ['Other', [Validators.required]],
-    contact_number: [''],
+    contactNumber: [''],
     email: [''],
     address: [''],
-    insurance_id: ['']
+    insuranceId: ['']
   });
 
   ngOnInit() {

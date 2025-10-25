@@ -31,11 +31,11 @@
               <tbody>
                 @for (d of items(); track d.id) {
                   <tr>
-                    <td>{{ d.full_name }}</td>
+                    <td>{{ d.fullName }}</td>
                     <td>{{ d.specialization }}</td>
-                    <td>{{ d.license_number }}</td>
+                    <td>{{ d.licenseNumber }}</td>
                     <td>{{ d.sip }}</td>
-                    <td>{{ d.contact_number }}</td>
+                    <td>{{ d.contactNumber }}</td>
                     <td>{{ d.email }}</td>
                     <td class="text-end">
                       <a cButton color="secondary" size="sm" [routerLink]="[d.id]">Ubah</a>
