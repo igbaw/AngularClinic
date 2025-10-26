@@ -1,6 +1,12 @@
+const parseCors = () => {
+  const raw = process.env.CORS_ORIGIN;
+  if (!raw) return ["http://localhost:4200", "http://localhost:9876"];
+  return raw.split(",").map((s) => s.trim()).filter(Boolean);
+};
+
 export const config = {
   PORT: Number(process.env.PORT ?? 8080),
-  CORS_ORIGIN: process.env.CORS_ORIGIN ?? ["http://localhost:4200", "http://localhost:9876"],
+  CORS_ORIGIN: parseCors(),
   DATABASE_URL: process.env.DATABASE_URL ?? "file:./prisma/dev.db",
   PRISMA_PROVIDER: process.env.PRISMA_PROVIDER ?? "sqlite",
   AUTH_SECRET: process.env.AUTH_SECRET ?? "change_me",

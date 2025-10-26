@@ -10,7 +10,7 @@ try {
   npm ci
   Write-Host "Building Angular app..."
   npm run build
-  Write-Host "Build output: dist/coreui-free-angular-admin-template"
+Write-Host "Build output: dist/angular-clinic"
 }
 finally {
   Pop-Location
