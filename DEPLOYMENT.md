@@ -35,7 +35,7 @@ Notes:
 - Create a new Pages project from this repo.
 - Set Project root directory to `WebApp/Frontend`.
 - Build command: `npm ci && npm run build`
-- Output directory: `dist/angular-clinic`
+- Output directory: `dist/cloudflare`
 - Environment variable (Production & Preview):
   - BACKEND_URL=https://<your-render-service>.onrender.com
 - The included Pages Function at `functions/api/[[path]].ts` proxies `/api/*` to `BACKEND_URL`. No frontend code changes needed (production `environment.ts` points to `/api`).

@@ -10,7 +10,7 @@ try {
   npm ci
   Write-Host "Building Angular app..."
   npm run build
-Write-Host "Build output: dist/angular-clinic"
+Write-Host "Build output: dist/cloudflare"
 }
 finally {
   Pop-Location
