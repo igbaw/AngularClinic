@@ -20,4 +20,4 @@ services:
         value: "true"
       - key: CORS_ORIGIN
         # Comma-separated list of allowed origins (Cloudflare Pages + custom domain)
-        value: https://your-pages-subdomain.pages.dev,https://your-domain.tld
+        value: https://angularclinic.pages.dev
