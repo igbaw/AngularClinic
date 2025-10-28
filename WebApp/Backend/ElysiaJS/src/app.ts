@@ -5,6 +5,8 @@ import { registerRoutes } from "./routes";
 import { AppError } from "./utils/errors";
 
 export const createApp = () => {
+  console.log("Creating Elysia app...");
+  
   const app = new Elysia()
     .use(
       cors({
@@ -13,6 +15,8 @@ export const createApp = () => {
       })
     )
     .onError(({ error, set, code }) => {
+      console.error("Error handler triggered:", { code, error: error.message });
+      
       // Handle validation errors
       if (code === "VALIDATION") {
         set.status = 422;
@@ -55,14 +59,32 @@ export const createApp = () => {
       };
       return body;
     })
-    .get("/api/health", () => ({ status: "ok" }));
+    .get("/api/health", () => {
+      console.log("Health check called");
+      return { status: "ok" };
+    });
 
-  registerRoutes(app);
+  console.log("Registering routes...");
+  try {
+    registerRoutes(app);
+    console.log("Routes registered successfully");
+  } catch (error) {
+    console.error("Error registering routes:", error);
+    throw error;
+  }
+  
   return app;
 };
 
 if (import.meta.main) {
-  const app = createApp();
-  app.listen({ port: config.PORT, hostname: "0.0.0.0" });
-  console.log(`Elysia listening on :${config.PORT}`);
+  try {
+    console.log("Starting application...");
+    const app = createApp();
+    console.log("App created, starting server...");
+    app.listen({ port: config.PORT, hostname: "0.0.0.0" });
+    console.log(`Elysia listening on :${config.PORT}`);
+  } catch (error) {
+    console.error("Failed to start application:", error);
+    process.exit(1);
+  }
 }
