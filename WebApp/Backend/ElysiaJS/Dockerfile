@@ -24,4 +24,4 @@ ENV NODE_ENV=production
 EXPOSE 8080
 
 # Apply migrations (or push on first deploy) then start the app
-CMD ["bash","-lc","bunx prisma migrate deploy || bunx prisma db push; bun src/app.ts"]
+CMD ["bash","-c","echo 'Testing database connection...' && bunx prisma db pull --force || echo 'DB pull failed, continuing...' && bunx prisma generate && (bunx prisma migrate deploy || bunx prisma db push) && echo 'Starting server...' && bun src/app.ts"]
