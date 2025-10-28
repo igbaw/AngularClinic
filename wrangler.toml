@@ -1,3 +1,9 @@
 name = "angularclinic"
 compatibility_date = "2024-10-27"
 pages_build_output_dir = "WebApp/Frontend/dist/cloudflare/browser"
+
+[env.production.vars]
+BACKEND_URL = "https://clinic-backend-tyd7.onrender.com"
+
+[env.preview.vars]
+BACKEND_URL = "https://clinic-backend-tyd7.onrender.com"
