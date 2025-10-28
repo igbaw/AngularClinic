@@ -73,6 +73,13 @@ export const createApp = () => {
     throw error;
   }
   
+  // Add catch-all route for debugging
+  app.all("*", ({ request, set }) => {
+    console.log(`Unmatched request: ${request.method} ${new URL(request.url).pathname}`);
+    set.status = 404;
+    return { error: "Not Found", method: request.method, path: new URL(request.url).pathname };
+  });
+  
   return app;
 };
 
@@ -81,10 +88,16 @@ if (import.meta.main) {
     console.log("Starting application...");
     const app = createApp();
     console.log("App created, starting server...");
+    
+    // Add a small delay to ensure everything is ready
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
     app.listen({ port: config.PORT, hostname: "0.0.0.0" });
     console.log(`Elysia listening on :${config.PORT}`);
+    console.log("Server is ready to accept connections");
   } catch (error) {
     console.error("Failed to start application:", error);
+    console.error(error.stack);
     process.exit(1);
   }
 }
